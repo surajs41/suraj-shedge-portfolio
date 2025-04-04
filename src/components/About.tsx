@@ -4,21 +4,34 @@ import { FileText } from "lucide-react";
 
 const About = () => {
   return (
-    <section id="about" className="bg-muted/30 py-16 md:py-24">
-      <div className="section-container">
-        <h2 className="section-title text-center mx-auto">About Me</h2>
+    <section id="about" className="bg-muted/30 py-16 md:py-24 relative overflow-hidden">
+      {/* Background decorative elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="blob-bg bg-secondary/10 top-10 -left-40"></div>
+        <div className="absolute inset-0 dotted-bg opacity-20"></div>
+      </div>
+      
+      <div className="section-container relative z-10">
+        <h2 className="section-title text-center mx-auto">About <span className="gradient-text">Me</span></h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-12 items-center">
           <div className="animate-fade-in" style={{ animationDelay: "200ms" }}>
-            <img 
-              src="/placeholder.svg" 
-              alt="Suraj Shedge" 
-              className="rounded-lg shadow-lg w-full max-w-md mx-auto"
-            />
+            <div className="relative">
+              <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 rounded-lg blur-lg"></div>
+              <img 
+                src="/placeholder.svg" 
+                alt="Suraj Shedge" 
+                className="rounded-lg shadow-lg w-full max-w-md mx-auto relative z-10"
+              />
+              
+              {/* Decorative accents */}
+              <div className="absolute -top-5 -left-5 w-20 h-20 border-2 border-primary/50 rounded-lg"></div>
+              <div className="absolute -bottom-5 -right-5 w-20 h-20 border-2 border-secondary/50 rounded-lg"></div>
+            </div>
           </div>
           
           <div className="animate-fade-in" style={{ animationDelay: "400ms" }}>
-            <h3 className="text-2xl md:text-3xl font-bold mb-4">
+            <h3 className="text-2xl md:text-3xl font-bold mb-4 gradient-text">
               Computer Engineering Student &amp; Java Developer
             </h3>
             
@@ -35,23 +48,23 @@ const About = () => {
             </p>
             
             <div className="flex flex-wrap gap-4 mb-6">
-              <div className="bg-card rounded-lg p-4 shadow-sm">
+              <div className="bg-card rounded-lg p-4 shadow-sm border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-md">
                 <h4 className="font-semibold text-lg">Education</h4>
-                <p className="text-muted-foreground">B.Tech in Computer Engineering</p>
+                <p className="text-muted-foreground">B.E. in Computer Engineering</p>
               </div>
               
-              <div className="bg-card rounded-lg p-4 shadow-sm">
+              <div className="bg-card rounded-lg p-4 shadow-sm border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-md">
                 <h4 className="font-semibold text-lg">Experience</h4>
                 <p className="text-muted-foreground">2+ Years Coding</p>
               </div>
               
-              <div className="bg-card rounded-lg p-4 shadow-sm">
+              <div className="bg-card rounded-lg p-4 shadow-sm border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-md">
                 <h4 className="font-semibold text-lg">Projects</h4>
                 <p className="text-muted-foreground">5+ Completed</p>
               </div>
             </div>
             
-            <Button asChild className="rounded-full">
+            <Button asChild className="rounded-full shadow-lg shadow-primary/20 transform hover:translate-y-[-3px] transition-all">
               <a href="#resume">
                 <FileText className="mr-2 h-4 w-4" />
                 Download Resume

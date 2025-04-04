@@ -7,6 +7,7 @@ import { Menu, X } from "lucide-react";
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,6 +16,20 @@ const Navbar = () => {
       } else {
         setIsScrolled(false);
       }
+      
+      // Track active section for navigation highlighting
+      const sections = document.querySelectorAll("section[id]");
+      const scrollPosition = window.scrollY + 100;
+      
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.offsetHeight;
+        const sectionId = section.getAttribute("id") || "";
+        
+        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+          setActiveSection(sectionId);
+        }
+      });
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -29,6 +44,11 @@ const Navbar = () => {
     { name: "Contact", href: "#contact" },
   ];
 
+  const isActive = (href: string) => {
+    const sectionId = href.replace('#', '');
+    return sectionId === activeSection;
+  };
+
   return (
     <header
       className={`fixed w-full top-0 z-50 transition-all duration-500 ${
@@ -41,18 +61,23 @@ const Navbar = () => {
         <a
           href="#"
           className="text-2xl font-bold text-foreground flex items-center hover:text-primary transition-colors duration-300"
+          onClick={() => setActiveSection("home")}
         >
           <span className="text-primary hover:scale-110 transition-transform duration-300">Suraj</span>
           <span className="ml-1">Shedge</span>
         </a>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-2">
+        <nav className="hidden md:flex items-center space-x-1">
           {navLinks.map((link) => (
             <a
               key={link.name}
               href={link.href}
-              className="px-3 py-2 rounded-md text-foreground hover:text-primary hover:scale-105 transition-all duration-300"
+              className={`px-3 py-2 rounded-md text-foreground transition-all duration-300 ${
+                isActive(link.href) 
+                  ? "text-primary font-medium bg-primary/10" 
+                  : "hover:text-primary hover:bg-muted hover:scale-105"
+              }`}
             >
               {link.name}
             </a>
@@ -89,7 +114,11 @@ const Navbar = () => {
               <a
                 key={link.name}
                 href={link.href}
-                className="block px-3 py-2 rounded-md text-foreground hover:text-primary hover:bg-primary/5 transition-colors duration-300"
+                className={`block px-3 py-2 rounded-md transition-colors duration-300 ${
+                  isActive(link.href)
+                    ? "text-primary font-medium bg-primary/10"
+                    : "text-foreground hover:text-primary hover:bg-primary/5"
+                }`}
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {link.name}
