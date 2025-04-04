@@ -6,27 +6,27 @@ const Skills = () => {
     {
       title: "Programming Languages",
       icon: <Code className="h-8 w-8 text-primary mb-4" />,
-      skills: ["Java", "Python", "JavaScript", "HTML", "CSS", "SQL"],
+      skills: ["Java", "JavaScript", "HTML", "CSS", "SQL"],
     },
     {
       title: "Frameworks & Libraries",
       icon: <Layout className="h-8 w-8 text-primary mb-4" />,
-      skills: ["Spring Boot", "Hibernate", "React", "Bootstrap", "jQuery"],
+      skills: ["Spring Boot", "Hibernate", "Bootstrap"],
     },
     {
       title: "Databases",
       icon: <Database className="h-8 w-8 text-primary mb-4" />,
-      skills: ["MySQL", "PostgreSQL", "MongoDB", "Oracle"],
+      skills: ["MySQL"],
     },
     {
       title: "Backend Development",
       icon: <Server className="h-8 w-8 text-primary mb-4" />,
-      skills: ["RESTful APIs", "Microservices", "JDBC", "JPA"],
+      skills: ["RESTful APIs", "Microservices", "JDBC", "JPA", "API Integration", "JSP"],
     },
     {
       title: "Tools & Technologies",
       icon: <Settings className="h-8 w-8 text-primary mb-4" />,
-      skills: ["Git", "Maven", "Gradle", "Docker", "Jenkins", "Tomcat"],
+      skills: ["Git", "Maven", "Gradle", "Tomcat", "VSCode", "Spring Tool Suite", "Eclipse", "Postman"],
     },
   ];
 
