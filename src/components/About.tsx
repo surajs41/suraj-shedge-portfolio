@@ -4,21 +4,21 @@ import { FileText } from "lucide-react";
 
 const About = () => {
   return (
-    <section id="about" className="bg-muted/30 py-16 md:py-24">
+    <section id="about" className="gradient-bg py-10 md:py-16 relative">
       <div className="section-container">
         <h2 className="section-title text-center mx-auto">About Me</h2>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-12 items-center">
-          <div className="animate-fade-in" style={{ animationDelay: "200ms" }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 mt-8 items-center">
+          <div className="animate-slide-in-left" style={{ animationDelay: "0.2s" }}>
             <img 
               src="/placeholder.svg" 
               alt="Suraj Shedge" 
-              className="rounded-lg shadow-lg w-full max-w-md mx-auto"
+              className="rounded-lg shadow-lg w-full max-w-md mx-auto object-cover"
             />
           </div>
           
-          <div className="animate-fade-in" style={{ animationDelay: "400ms" }}>
-            <h3 className="text-2xl md:text-3xl font-bold mb-4">
+          <div className="animate-slide-in-right" style={{ animationDelay: "0.4s" }}>
+            <h3 className="text-2xl md:text-3xl font-bold mb-4 font-montserrat">
               Computer Engineering Student &amp; Java Developer
             </h3>
             
@@ -35,23 +35,23 @@ const About = () => {
             </p>
             
             <div className="flex flex-wrap gap-4 mb-6">
-              <div className="bg-card rounded-lg p-4 shadow-sm">
+              <div className="bg-card rounded-lg p-4 shadow-sm hover:shadow-md transition-all duration-300">
                 <h4 className="font-semibold text-lg">Education</h4>
                 <p className="text-muted-foreground">B.Tech in Computer Engineering</p>
               </div>
               
-              <div className="bg-card rounded-lg p-4 shadow-sm">
+              <div className="bg-card rounded-lg p-4 shadow-sm hover:shadow-md transition-all duration-300">
                 <h4 className="font-semibold text-lg">Experience</h4>
                 <p className="text-muted-foreground">2+ Years Coding</p>
               </div>
               
-              <div className="bg-card rounded-lg p-4 shadow-sm">
+              <div className="bg-card rounded-lg p-4 shadow-sm hover:shadow-md transition-all duration-300">
                 <h4 className="font-semibold text-lg">Projects</h4>
                 <p className="text-muted-foreground">5+ Completed</p>
               </div>
             </div>
             
-            <Button asChild className="rounded-full">
+            <Button asChild className="rounded-full shadow-md">
               <a href="#resume">
                 <FileText className="mr-2 h-4 w-4" />
                 Download Resume
@@ -60,6 +60,7 @@ const About = () => {
           </div>
         </div>
       </div>
+      <div className="section-divider mt-10"></div>
     </section>
   );
 };

@@ -33,14 +33,14 @@ const Navbar = () => {
     <header
       className={`fixed w-full top-0 z-50 transition-all duration-500 ${
         isScrolled
-          ? "bg-background/80 backdrop-blur-md shadow-sm"
+          ? "bg-background/95 backdrop-blur-md shadow-sm"
           : "bg-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
         <a
           href="#"
-          className="text-2xl font-bold text-foreground flex items-center hover:text-primary transition-colors duration-300"
+          className="text-2xl font-bold text-foreground flex items-center hover:text-primary transition-colors duration-300 font-montserrat"
         >
           <span className="text-primary hover:scale-110 transition-transform duration-300">Suraj</span>
           <span className="ml-1">Shedge</span>

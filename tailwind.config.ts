@@ -64,6 +64,11 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				}
 			},
+            fontFamily: {
+                'sans': ['Poppins', 'ui-sans-serif', 'system-ui', '-apple-system'],
+                'poppins': ['Poppins', 'sans-serif'],
+                'montserrat': ['Montserrat', 'sans-serif'],
+            },
 			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',

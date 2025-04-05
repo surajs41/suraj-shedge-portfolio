@@ -1,6 +1,7 @@
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import { ExternalLink, Github } from "lucide-react";
 
 const Projects = () => {
@@ -35,20 +36,20 @@ const Projects = () => {
   ];
 
   return (
-    <section id="projects" className="bg-muted/30 py-16 md:py-24">
+    <section id="projects" className="gradient-bg py-10 md:py-16 relative">
       <div className="section-container">
         <h2 className="section-title text-center mx-auto">My Projects</h2>
-        <p className="text-muted-foreground text-center max-w-3xl mx-auto mb-12">
+        <p className="text-muted-foreground text-center max-w-3xl mx-auto mb-10">
           Here are some of the projects I've worked on that showcase my skills and
           experience in software development.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
           {projects.map((project, index) => (
-            <div 
+            <Card 
               key={project.title} 
-              className="project-card animate-fade-in"
-              style={{ animationDelay: `${200 * index}ms` }}
+              className="overflow-hidden border border-border hover:shadow-lg transition-all duration-300 hover:border-primary animate-slide-up"
+              style={{ animationDelay: `${0.2 * index}s` }}
             >
               <div className="aspect-video overflow-hidden">
                 <img
@@ -57,8 +58,8 @@ const Projects = () => {
                   className="object-cover w-full h-full transition-transform duration-500 hover:scale-110"
                 />
               </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-2">{project.title}</h3>
+              <CardContent className="p-6">
+                <h3 className="text-xl font-bold mb-2 font-montserrat">{project.title}</h3>
                 <p className="text-muted-foreground mb-4">{project.description}</p>
                 <div className="flex flex-wrap gap-2 mb-6">
                   {project.tags.map((tag) => (
@@ -81,11 +82,12 @@ const Projects = () => {
                     </a>
                   </Button>
                 </div>
-              </div>
-            </div>
+              </CardContent>
+            </Card>
           ))}
         </div>
       </div>
+      <div className="section-divider mt-10"></div>
     </section>
   );
 };
