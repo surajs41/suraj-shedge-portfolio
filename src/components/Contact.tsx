@@ -30,7 +30,8 @@ const Contact = () => {
     setIsSubmitting(true);
     
     try {
-      const response = await fetch("https://api.brevo.com/v3/smtp/email", {
+      // Step 1: Send notification email to the portfolio owner
+      const ownerNotificationResponse = await fetch("https://api.brevo.com/v3/smtp/email", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -38,37 +39,35 @@ const Contact = () => {
         },
         body: JSON.stringify({
           sender: {
-            name: formData.name,
-            email: formData.email,
+            name: "Portfolio Contact Form",
+            email: "noreply@portfoliocontact.com", // This is just a placeholder, Brevo will use the verified sender
           },
           to: [
             {
-              email: "surajshedage45@gmail.com",
+              email: "surajshedage45@gmail.com", // Your email address
               name: "Suraj Shedge",
             },
           ],
-          replyTo: {
-            email: formData.email,
-            name: formData.name,
-          },
-          subject: `Portfolio Contact: ${formData.subject}`,
+          subject: `New Contact Form Message: ${formData.subject || "No Subject"}`,
           htmlContent: `
-            <h3>New contact form submission from your portfolio</h3>
+            <h2>New contact form submission from your portfolio</h2>
             <p><strong>Name:</strong> ${formData.name}</p>
             <p><strong>Email:</strong> ${formData.email}</p>
-            <p><strong>Subject:</strong> ${formData.subject}</p>
+            <p><strong>Subject:</strong> ${formData.subject || "No Subject"}</p>
             <p><strong>Message:</strong></p>
-            <p>${formData.message.replace(/\n/g, '<br>')}</p>
+            <div style="padding: 15px; border-left: 4px solid #ccc; margin: 10px 0;">
+              ${formData.message.replace(/\n/g, '<br>')}
+            </div>
           `,
         }),
       });
 
-      if (!response.ok) {
-        throw new Error('Failed to send email');
+      if (!ownerNotificationResponse.ok) {
+        throw new Error('Failed to send notification email to owner');
       }
 
-      // Send thank you email to the user
-      await fetch("https://api.brevo.com/v3/smtp/email", {
+      // Step 2: Send thank you email to the user
+      const userThankYouResponse = await fetch("https://api.brevo.com/v3/smtp/email", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -77,7 +76,7 @@ const Contact = () => {
         body: JSON.stringify({
           sender: {
             name: "Suraj Shedge",
-            email: "surajshedage45@gmail.com",
+            email: "surajshedage45@gmail.com", // This should be your verified sender email in Brevo
           },
           to: [
             {
@@ -87,25 +86,37 @@ const Contact = () => {
           ],
           subject: "Thank you for contacting me",
           htmlContent: `
-            <h3>Thank you for reaching out!</h3>
-            <p>Hello ${formData.name},</p>
-            <p>I appreciate you taking the time to contact me. I've received your message and will get back to you as soon as possible.</p>
-            <p>Best regards,</p>
-            <p>Suraj Shedge</p>
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+              <h2>Thank you for reaching out!</h2>
+              <p>Hello ${formData.name},</p>
+              <p>I appreciate you taking the time to contact me. I've received your message and will get back to you as soon as possible.</p>
+              <p>For your reference, here's a copy of your message:</p>
+              <div style="padding: 15px; border-left: 4px solid #ccc; background-color: #f9f9f9; margin: 15px 0;">
+                <p><strong>Subject:</strong> ${formData.subject || "No Subject"}</p>
+                <p><strong>Message:</strong></p>
+                <p>${formData.message.replace(/\n/g, '<br>')}</p>
+              </div>
+              <p>Best regards,</p>
+              <p><strong>Suraj Shedge</strong></p>
+            </div>
           `,
         }),
       });
 
+      if (!userThankYouResponse.ok) {
+        throw new Error('Failed to send thank you email to user');
+      }
+
       setFormSuccess(true);
       toast({
-        title: "Message sent!",
+        title: "Message sent successfully!",
         description: "Thanks for reaching out. I'll get back to you soon.",
       });
       setFormData({ name: "", email: "", subject: "", message: "" });
     } catch (error) {
-      console.error("Error sending email:", error);
+      console.error("Error sending emails:", error);
       toast({
-        title: "Error",
+        title: "Something went wrong",
         description: "Failed to send your message. Please try again later.",
         variant: "destructive",
       });
