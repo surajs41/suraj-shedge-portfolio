@@ -36,7 +36,7 @@ export function ThemeProvider({
     root.classList.remove("light", "dark");
 
     // Add animation class
-    root.classList.add("transition-colors", "duration-500");
+    root.classList.add("transition-colors", "duration-700");
 
     // Timeout for smooth animation
     const timer = setTimeout(() => {
