@@ -31,17 +31,20 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
+      const apiKey = import.meta.env.VITE_BREVO_API_KEY;
+      console.log("Using API Key:", apiKey ? "Key exists (not shown for security)" : "No key found");
+      
       // Step 1: Email to Portfolio Owner
       const ownerNotificationResponse = await fetch("https://api.brevo.com/v3/smtp/email", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "api-key": import.meta.env.VITE_BREVO_API_KEY,
+          "api-key": apiKey,
         },
         body: JSON.stringify({
           sender: {
             name: "Portfolio Contact Form",
-            email: "surajshedage45@gmail.com", // ✅ Verified email
+            email: "surajshedage45@gmail.com", // Verified sender email
           },
           to: [
             {
@@ -64,7 +67,9 @@ const Contact = () => {
       });
 
       if (!ownerNotificationResponse.ok) {
-        throw new Error("Failed to send notification email to owner");
+        const errorData = await ownerNotificationResponse.json().catch(() => ({}));
+        console.error("Owner notification failed:", ownerNotificationResponse.status, errorData);
+        throw new Error(`Failed to send notification email: ${errorData.message || ownerNotificationResponse.statusText}`);
       }
 
       // Step 2: Thank You Email to User
@@ -72,12 +77,12 @@ const Contact = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "api-key": import.meta.env.VITE_BREVO_API_KEY,
+          "api-key": apiKey,
         },
         body: JSON.stringify({
           sender: {
             name: "Suraj Shedge",
-            email: "surajshedage45@gmail.com", // ✅ Verified email
+            email: "surajshedage45@gmail.com", // Verified sender email
           },
           to: [
             {
@@ -105,7 +110,9 @@ const Contact = () => {
       });
 
       if (!userThankYouResponse.ok) {
-        throw new Error("Failed to send thank you email to user");
+        const errorData = await userThankYouResponse.json().catch(() => ({}));
+        console.error("Thank you email failed:", userThankYouResponse.status, errorData);
+        throw new Error(`Failed to send thank you email: ${errorData.message || userThankYouResponse.statusText}`);
       }
 
       setFormSuccess(true);
@@ -118,7 +125,7 @@ const Contact = () => {
       console.error("Error sending emails:", error);
       toast({
         title: "Something went wrong",
-        description: "Failed to send your message. Please try again later.",
+        description: error instanceof Error ? error.message : "Failed to send your message. Please try again later.",
         variant: "destructive",
       });
     } finally {
