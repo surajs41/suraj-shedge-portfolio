@@ -29,9 +29,9 @@ const Contact = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     try {
-      // Step 1: Send notification email to the portfolio owner
+      // Step 1: Email to Portfolio Owner
       const ownerNotificationResponse = await fetch("https://api.brevo.com/v3/smtp/email", {
         method: "POST",
         headers: {
@@ -41,11 +41,11 @@ const Contact = () => {
         body: JSON.stringify({
           sender: {
             name: "Portfolio Contact Form",
-            email: "noreply@portfoliocontact.com", // This is just a placeholder, Brevo will use the verified sender
+            email: "surajshedage45@gmail.com", // ✅ Verified email
           },
           to: [
             {
-              email: "surajshedage3315@gmail.com", // Updated email address
+              email: "surajshedage45@gmail.com",
               name: "Suraj Shedge",
             },
           ],
@@ -57,17 +57,17 @@ const Contact = () => {
             <p><strong>Subject:</strong> ${formData.subject || "No Subject"}</p>
             <p><strong>Message:</strong></p>
             <div style="padding: 15px; border-left: 4px solid #ccc; margin: 10px 0;">
-              ${formData.message.replace(/\n/g, '<br>')}
+              ${formData.message.replace(/\n/g, "<br>")}
             </div>
           `,
         }),
       });
 
       if (!ownerNotificationResponse.ok) {
-        throw new Error('Failed to send notification email to owner');
+        throw new Error("Failed to send notification email to owner");
       }
 
-      // Step 2: Send thank you email to the user
+      // Step 2: Thank You Email to User
       const userThankYouResponse = await fetch("https://api.brevo.com/v3/smtp/email", {
         method: "POST",
         headers: {
@@ -77,7 +77,7 @@ const Contact = () => {
         body: JSON.stringify({
           sender: {
             name: "Suraj Shedge",
-            email: "surajshedage3315@gmail.com", // Updated sender email
+            email: "surajshedage45@gmail.com", // ✅ Verified email
           },
           to: [
             {
@@ -95,7 +95,7 @@ const Contact = () => {
               <div style="padding: 15px; border-left: 4px solid #ccc; background-color: #f9f9f9; margin: 15px 0;">
                 <p><strong>Subject:</strong> ${formData.subject || "No Subject"}</p>
                 <p><strong>Message:</strong></p>
-                <p>${formData.message.replace(/\n/g, '<br>')}</p>
+                <p>${formData.message.replace(/\n/g, "<br>")}</p>
               </div>
               <p>Best regards,</p>
               <p><strong>Suraj Shedge</strong></p>
@@ -105,7 +105,7 @@ const Contact = () => {
       });
 
       if (!userThankYouResponse.ok) {
-        throw new Error('Failed to send thank you email to user');
+        throw new Error("Failed to send thank you email to user");
       }
 
       setFormSuccess(true);
@@ -130,7 +130,7 @@ const Contact = () => {
     {
       icon: <Mail className="h-5 w-5 text-primary" />,
       title: "Email",
-      value: "surajshedage3315@gmail.com",
+      value: "surajshedage45@gmail.com", // ✅ Updated here too
     },
     {
       icon: <Phone className="h-5 w-5 text-primary" />,
@@ -154,7 +154,6 @@ const Contact = () => {
         </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-          {/* Contact Form */}
           <div className="animate-slide-in-left" style={{ animationDelay: "0.2s" }}>
             {formSuccess ? (
               <Alert className="bg-primary/10 border-primary mb-6">
@@ -254,18 +253,15 @@ const Contact = () => {
             )}
           </div>
 
-          {/* Contact Information */}
           <div className="animate-slide-in-right" style={{ animationDelay: "0.4s" }}>
             <Card className="border shadow-sm">
               <CardContent className="p-6">
                 <h3 className="text-2xl font-bold mb-6 font-montserrat">Contact Information</h3>
-                
+
                 <div className="space-y-6 mb-8">
                   {contactInfo.map((info, index) => (
                     <div key={index} className="flex items-start">
-                      <div className="bg-muted p-3 rounded-full mr-4">
-                        {info.icon}
-                      </div>
+                      <div className="bg-muted p-3 rounded-full mr-4">{info.icon}</div>
                       <div>
                         <p className="text-sm text-muted-foreground">{info.title}</p>
                         <p className="font-medium">{info.value}</p>
@@ -273,7 +269,7 @@ const Contact = () => {
                     </div>
                   ))}
                 </div>
-                
+
                 <div>
                   <h4 className="text-lg font-semibold mb-4">Follow Me</h4>
                   <div className="flex space-x-4">
@@ -294,7 +290,7 @@ const Contact = () => {
                       <Linkedin className="h-5 w-5" />
                     </a>
                     <a
-                      href="mailto:surajshedage3315@gmail.com"
+                      href="mailto:surajshedage45@gmail.com"
                       className="bg-muted p-3 rounded-full hover:bg-primary hover:text-white transition-colors"
                     >
                       <Mail className="h-5 w-5" />
