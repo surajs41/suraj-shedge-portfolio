@@ -12,8 +12,8 @@
 
 /* Scroll styles */
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -22,11 +22,17 @@
 
 ::-webkit-scrollbar-thumb {
   background: hsl(var(--muted-foreground) / 0.3);
-  border-radius: 5px;
+  border-radius: 50px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: hsl(var(--muted-foreground) / 0.5);
+}
+
+/* Smooth scrolling for the entire page */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
 }
 
 /* Animate logo */
@@ -52,7 +58,16 @@
 
 .card-3d:hover {
   transform: translateY(-5px) rotateX(5deg);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Perspective container for 3D effects */
+.perspective-500 {
+  perspective: 500px;
+}
+
+.translate-z-10 {
+  transform: translateZ(10px);
 }
 
 /* Glassy UI */
@@ -68,10 +83,62 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+/* Glassmorphism effect */
+.glassmorphism {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius);
+}
+
+.dark .glassmorphism {
+  background: rgba(0, 0, 0, 0.2);
+}
+
 /* Gradient text */
 .gradient-text {
   background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--secondary)));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+/* Improved animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) rotate(0);
+  }
+  50% {
+    transform: translateY(-15px) rotate(1deg);
+  }
+}
+
+/* Click effect for buttons */
+button:active:not(:disabled), 
+.btn-3d:active {
+  transform: translateY(2px);
+  transition-duration: 0.1s;
+}
+
+/* Hover effect for links */
+.hover-underline {
+  position: relative;
+}
+
+.hover-underline:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background: hsl(var(--primary));
+  transform-origin: bottom right;
+  transition: transform 0.3s ease-out;
+}
+
+.hover-underline:hover:after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
 }
